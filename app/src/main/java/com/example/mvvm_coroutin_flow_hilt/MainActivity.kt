@@ -1,32 +1,66 @@
 package com.example.mvvm_coroutin_flow_hilt
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.example.mvvm_coroutin_flow_hilt.adapter.ViewPagerAdapter
 import com.example.mvvm_coroutin_flow_hilt.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-     binding = ActivityMainBinding.inflate(layoutInflater)
-     setContentView(binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        Log.d("start","mainactvitystart")
 
-        val navView: BottomNavigationView = binding.navView
+        binding.viewpager.adapter = ViewPagerAdapter(this)
+        binding.viewpager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    binding.navView.menu.getItem(position).isChecked = true
+                }
+            }
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-       setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        )
+        binding.navView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_dashboard -> {
+                    // ViewPager의 현재 item에 첫 번째 화면을 대입
+                    binding.viewpager.currentItem = 1
+                    return@setOnItemSelectedListener true
+                }
+                R.id.navigation_home -> {
+                    // ViewPager의 현재 item에 두 번째 화면을 대입
+                    binding.viewpager.currentItem = 0
+                    return@setOnItemSelectedListener true
+                }
+                R.id.navigation_notifications -> {
+                    // ViewPager의 현재 item에 세 번째 화면을 대입
+                    binding.viewpager.currentItem = 2
+                    return@setOnItemSelectedListener true
+                }
+                else -> {
+                    return@setOnItemSelectedListener false
+                }
+            }
+        }
+
     }
+
+
+
 }
