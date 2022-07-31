@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -50,5 +51,5 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(apiService:ApiService)= MainRepository(apiService)
+    fun provideMainRepository(apiService:ApiService,ioDispatcher: CoroutineDispatcher)= MainRepository(apiService,ioDispatcher)
 }

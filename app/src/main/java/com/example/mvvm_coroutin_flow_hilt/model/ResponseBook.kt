@@ -8,6 +8,6 @@ data class ResponseBook (
         val metaData: MetaData?,
 
         @SerializedName("documents")
-        var documents: MutableList<ResponseDocument>?
+        val documents: List<ResponseDocument>
 
 )

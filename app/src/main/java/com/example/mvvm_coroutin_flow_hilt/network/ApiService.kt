@@ -11,6 +11,6 @@ interface ApiService {
     suspend fun getBookResponse(
         @Header("Authorization") apiKey: String = "KakaoAK 9dda44542ed4491dd2f636cb60c5e52e",
         @Query("query") query : String
-    ): Response<ResponseBook>
+    ): ResponseBook
 
 }
