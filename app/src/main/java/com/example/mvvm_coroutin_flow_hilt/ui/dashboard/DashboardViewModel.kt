@@ -3,15 +3,16 @@ package com.example.mvvm_coroutin_flow_hilt.ui.dashboard
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseBook
+import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
 import com.example.mvvm_coroutin_flow_hilt.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import retrofit2.http.Query
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,20 +21,19 @@ class DashboardViewModel @Inject constructor(private val repository: MainReposit
 
     private var _text = MutableStateFlow("This is dashboard Fragment")
     var text = _text.asStateFlow().value
-    private var _myCustomPosts = MutableStateFlow<ResponseBook>(ResponseBook(null,null))
-    val myCustomPosts: MutableStateFlow<ResponseBook>
-    get() = _myCustomPosts
+    private var _myCustomPosts = MutableSharedFlow<PagingData<ResponseDocument>>()
+    val myCustomPosts =_myCustomPosts.asSharedFlow()
+
 
     init {
-        loadData()
+       loadData("소나기")
     }
 
-    private fun loadData() {
+     fun loadData(query: String){
         viewModelScope.launch {
-          repository.getBookResponse("사랑").collect {
-              _myCustomPosts?.value = it.body()!!
-              Log.d("responseResult", it.body().toString())
-              Log.d("responseResult", _myCustomPosts.value.toString())
+          repository.getBookResponse(query).collect {
+              Log.d("JIWOUNG",it.toString())
+              _myCustomPosts.emit(it)
           }
         }
     }

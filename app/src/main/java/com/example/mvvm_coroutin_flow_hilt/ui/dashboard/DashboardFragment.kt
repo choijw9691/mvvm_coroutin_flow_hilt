@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mvvm_coroutin_flow_hilt.adapter.dashboardPagingAdapter
 import com.example.mvvm_coroutin_flow_hilt.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -21,20 +23,23 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     val dashboardViewModel: DashboardViewModel by viewModels()
-
-
+    private  val adapter: dashboardPagingAdapter = dashboardPagingAdapter { item -> dashboardViewModel.loadData("사랑") }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = binding.textDashboard
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
+
+      /*  binding.search.setOnClickListener {
+            imageSearchViewModel.handleQuery(query = binding.editText.text.trim().toString())
+        }*/
 
         Log.d("JIWOUNG","bodycheck: "+"start");
       // dashboardViewModel.loadData();
         viewLifecycleOwner.lifecycleScope.launch{
             dashboardViewModel.myCustomPosts?.collectLatest {
-                Log.d("JIWOUNG", "bodycheck: ${it.documents.toString()}");
-                textView.text = it.documents.toString()
-
+                adapter.submitData(it)
             }
         }
 
@@ -48,6 +53,9 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
+
    return root
     }
 

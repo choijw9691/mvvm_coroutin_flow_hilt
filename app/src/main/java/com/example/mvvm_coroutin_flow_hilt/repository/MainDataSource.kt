@@ -1,5 +1,6 @@
 package com.example.mvvm_coroutin_flow_hilt.repository
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseBook
@@ -18,17 +19,20 @@ class MainDataSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResponseDocument> {
         return try {
+
             val page = params.key ?: 1
 
-            val response = withContext(ioDispatcher) {
-                apiService.getBookResponse(query = query)
-            }
-
-
+            val response = apiService.getBookResponse(query = query, page = page)
 
             val prevKey = if (page == 1) null else page - 1
             val nextKey =
-                if (response.documents?.get(page) == null ) null else page + 1
+                if (response.documents.isEmpty()) {
+                    null
+                } else {
+                    page + params.loadSize
+                }
+
+            Log.d("JIWOUNG", "loadTest2: " + page + "||" + "loadsize: " + params.loadSize + "||||" + response.documents)
 
             LoadResult.Page(
                 data = response.documents,
@@ -37,8 +41,11 @@ class MainDataSource(
             )
 
         } catch (exception: IOException) {
-            return LoadResult.Error(exception)
+            Log.d("JIWOUNG","error")
+                return LoadResult.Error(exception)
         } catch (exception: HttpException) {
+            Log.d("JIWOUNG","error1")
+
             return LoadResult.Error(exception)
         }
     }
@@ -48,7 +55,9 @@ class MainDataSource(
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }     }
+        }
+    }
 }
+
 
 

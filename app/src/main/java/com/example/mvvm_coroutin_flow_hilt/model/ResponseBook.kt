@@ -9,5 +9,4 @@ data class ResponseBook (
 
         @SerializedName("documents")
         val documents: List<ResponseDocument>
-
 )
