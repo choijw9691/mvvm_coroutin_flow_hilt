@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseBook
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
 import com.example.mvvm_coroutin_flow_hilt.network.ApiService

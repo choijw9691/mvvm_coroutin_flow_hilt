@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseBook
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
@@ -18,12 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
-
-    private var _text = MutableStateFlow("This is dashboard Fragment")
-    var text = _text.asStateFlow().value
     private var _myCustomPosts = MutableSharedFlow<PagingData<ResponseDocument>>()
-    val myCustomPosts =_myCustomPosts.asSharedFlow()
-
+    val myCustomPosts =_myCustomPosts.asSharedFlow().cachedIn(viewModelScope)
 
     init {
        loadData("소나기")
@@ -32,9 +29,24 @@ class DashboardViewModel @Inject constructor(private val repository: MainReposit
      fun loadData(query: String){
         viewModelScope.launch {
           repository.getBookResponse(query).collect {
-              Log.d("JIWOUNG",it.toString())
               _myCustomPosts.emit(it)
           }
+        }
+    }
+
+    private val favorites = mutableSetOf<ResponseDocument>()
+    private val _favoritesFlow = MutableSharedFlow<List<ResponseDocument>>(replay = 0)
+    val favoritesFlow = _favoritesFlow.asSharedFlow()
+
+    fun toggle(item: ResponseDocument) {
+
+        if (favorites.contains(item)) {
+            favorites.remove(item)
+        } else {
+            favorites.add(item)
+        }
+        viewModelScope.launch {
+            _favoritesFlow.emit(favorites.toList())
         }
     }
 }

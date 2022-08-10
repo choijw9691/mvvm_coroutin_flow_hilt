@@ -1,20 +1,19 @@
 package com.example.mvvm_coroutin_flow_hilt.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mvvm_coroutin_flow_hilt.R
 import com.example.mvvm_coroutin_flow_hilt.databinding.BookItemBinding
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
 
-class dashboardPagingAdapter (
+class notificationPagingAdapter (
     private val item: (ResponseDocument) -> Unit,
-) : PagingDataAdapter<ResponseDocument, dashboardPagingAdapter.bookHolder>(comparator) {
+) : ListAdapter<ResponseDocument, notificationPagingAdapter.bookHolder>(comparator) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,6 +26,7 @@ class dashboardPagingAdapter (
         val item = getItem(position)
         holder.bind(item)
     }
+
 
     companion object {
         val comparator = object : DiffUtil.ItemCallback<ResponseDocument>() // 이것은 RecyclerView 목록 어댑터를 정의 할 때 일반적으로 수행하는 것과 동일하게 작동한다.
@@ -50,7 +50,7 @@ class dashboardPagingAdapter (
             item?.let { item ->
                 Glide.with(binding.root).load(item.thumbnail).centerCrop().into(binding.imageView)
                 binding.imageView.setOnClickListener{
-                    like(item)
+                  //  like(item)
                 }
             }
         }
@@ -69,4 +69,7 @@ class dashboardPagingAdapter (
     }
 
 
+
+
 }
+

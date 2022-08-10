@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
@@ -22,8 +23,9 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    val dashboardViewModel: DashboardViewModel by viewModels()
-    private  val adapter: dashboardPagingAdapter = dashboardPagingAdapter { item -> dashboardViewModel.loadData("사랑") }
+    val dashboardViewModel: DashboardViewModel by activityViewModels()
+
+    private  val adapter: dashboardPagingAdapter = dashboardPagingAdapter { item -> dashboardViewModel.toggle(item) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,14 +33,11 @@ class DashboardFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
 
-      /*  binding.search.setOnClickListener {
-            imageSearchViewModel.handleQuery(query = binding.editText.text.trim().toString())
-        }*/
-
-        Log.d("JIWOUNG","bodycheck: "+"start");
-      // dashboardViewModel.loadData();
+        // collectLatest - 데이터 처리하는 도중 새로운 데이터가 들어올 경우 이전 데이터 처리 취소
         viewLifecycleOwner.lifecycleScope.launch{
             dashboardViewModel.myCustomPosts?.collectLatest {
+                Log.d("JIWOUNG","idontknow123: "+it.toString())
+
                 adapter.submitData(it)
             }
         }

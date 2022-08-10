@@ -23,17 +23,19 @@ class MainDataSource(
             val page = params.key ?: 1
 
             val response = apiService.getBookResponse(query = query, page = page)
+            Log.d("JIWOUNG","apiservicecheck: "+response.metaData?.isEnd)
 
             val prevKey = if (page == 1) null else page - 1
             val nextKey =
-                if (response.documents.isEmpty()) {
+                if (response.documents.isEmpty()|| response.metaData?.isEnd == true) {
+                    Log.d("JIWOUNG","response null check")
                     null
                 } else {
-                    page + params.loadSize
+                  //page + params.loadSize
+                    Log.d("JIWOUNG","response page check")
+
+                    page+1
                 }
-
-            Log.d("JIWOUNG", "loadTest2: " + page + "||" + "loadsize: " + params.loadSize + "||||" + response.documents)
-
             LoadResult.Page(
                 data = response.documents,
                 prevKey = prevKey,
@@ -41,11 +43,8 @@ class MainDataSource(
             )
 
         } catch (exception: IOException) {
-            Log.d("JIWOUNG","error")
-                return LoadResult.Error(exception)
+            return LoadResult.Error(exception)
         } catch (exception: HttpException) {
-            Log.d("JIWOUNG","error1")
-
             return LoadResult.Error(exception)
         }
     }
