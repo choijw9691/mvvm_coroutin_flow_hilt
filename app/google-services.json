@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1022119843404",
+    "project_id": "mvvm-coroutin-flow-hilt",
+    "storage_bucket": "mvvm-coroutin-flow-hilt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022119843404:android:9b177d108f8bcf5bee46e9",
+        "android_client_info": {
+          "package_name": "com.example.mvvm_coroutin_flow_hilt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022119843404-6ccpubf8hfogbe4u92i22q1n9ot36qt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAniFNXWMZapD1wKgs3yXmWfUOkbZajRG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022119843404-6ccpubf8hfogbe4u92i22q1n9ot36qt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
