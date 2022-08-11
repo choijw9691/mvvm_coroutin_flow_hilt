@@ -3,15 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/layout/activity_login.xml" value="0.35052083333333334" />
         <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/layout/fragment_dashboard.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/layout/fragment_notifications.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jiwoung/mvvm_coroutin_flow_hilt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/book_item.xml" value="0.3151041666666667" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.23802083333333332" />
       </map>
     </option>

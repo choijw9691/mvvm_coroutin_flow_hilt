@@ -23,13 +23,9 @@ class LoginRepository @Inject constructor(
 ) {
     private var firebaseAuth: FirebaseAuth = Firebase.auth
 
-    private
-    fun login(email: String, password: String): Boolean {
-        var success: Boolean = false
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            success = it.isSuccessful
-        }
-        return success
+
+    fun login(email: String, password: String): Task<AuthResult> {
+       return firebaseAuth.signInWithEmailAndPassword(email, password)
     }
 
      fun register(email: String, password: String): Task<AuthResult> {
