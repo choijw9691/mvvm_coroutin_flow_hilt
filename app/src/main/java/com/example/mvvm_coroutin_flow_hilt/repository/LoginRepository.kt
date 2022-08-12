@@ -31,8 +31,6 @@ class LoginRepository @Inject constructor(
      fun register(email: String, password: String): Task<AuthResult> {
 
          return firebaseAuth.createUserWithEmailAndPassword(email, password)
-
-
     }
 
     fun logout() = firebaseAuth.signOut()

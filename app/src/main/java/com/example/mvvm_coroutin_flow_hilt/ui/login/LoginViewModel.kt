@@ -56,10 +56,8 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
         return view.text.toString()
     }
 
-    sealed class Event {
-        data class ShowToast(val text: String) : Event()
-        data class Aaa(val value: String) : Event()
-        data class Bbb(val value: Int) : Event()
+    fun isLogin(): Boolean {
+        return repository.currentUser() !=null
     }
 }
 

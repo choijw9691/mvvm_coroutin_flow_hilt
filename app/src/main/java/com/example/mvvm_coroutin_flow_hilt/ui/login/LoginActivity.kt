@@ -31,6 +31,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
         binding.vm = loginViewModel
 
+        if (loginViewModel.isLogin()) {
+            val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         lifecycleScope.launch {
             loginViewModel.isResgisterSuccessful.collectLatest {
@@ -54,5 +59,6 @@ class LoginActivity : AppCompatActivity() {
 
     init {
         //Firebase.auth.signOut()
+
     }
 }
