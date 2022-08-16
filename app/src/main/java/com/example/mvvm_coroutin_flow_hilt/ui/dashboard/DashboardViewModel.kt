@@ -34,19 +34,5 @@ class DashboardViewModel @Inject constructor(private val repository: MainReposit
         }
     }
 
-    private val favorites = mutableSetOf<ResponseDocument>()
-    private val _favoritesFlow = MutableSharedFlow<List<ResponseDocument>>(replay = 0)
-    val favoritesFlow = _favoritesFlow.asSharedFlow()
 
-    fun toggle(item: ResponseDocument) {
-
-        if (favorites.contains(item)) {
-            favorites.remove(item)
-        } else {
-            favorites.add(item)
-        }
-        viewModelScope.launch {
-            _favoritesFlow.emit(favorites.toList())
-        }
-    }
 }

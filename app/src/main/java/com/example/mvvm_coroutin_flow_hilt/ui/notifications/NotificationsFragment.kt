@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mvvm_coroutin_flow_hilt.adapter.dashboardPagingAdapter
 import com.example.mvvm_coroutin_flow_hilt.adapter.notificationPagingAdapter
 import com.example.mvvm_coroutin_flow_hilt.databinding.FragmentNotificationsBinding
+import com.example.mvvm_coroutin_flow_hilt.ui.common.CommonViewModel
 import com.example.mvvm_coroutin_flow_hilt.ui.dashboard.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,10 +25,10 @@ import kotlinx.coroutines.launch
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
-    private  val adapter: notificationPagingAdapter = notificationPagingAdapter { item ->  }
+    private  val adapter: notificationPagingAdapter = notificationPagingAdapter { item -> commonViewModel.toggle(item)  }
 
     private val binding get() = _binding!!
-    val dashboardViewModel: DashboardViewModel by activityViewModels()
+    val commonViewModel: CommonViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +40,8 @@ class NotificationsFragment : Fragment() {
         val root: View = binding.root
 
         viewLifecycleOwner.lifecycleScope.launch {
-            dashboardViewModel.favoritesFlow.collectLatest {items->
-                Log.d("JIWOUNG", "startstttt")
+            commonViewModel
+                .favoritesFlow.collectLatest {items->
                 adapter.submitList(items)
             }
         }

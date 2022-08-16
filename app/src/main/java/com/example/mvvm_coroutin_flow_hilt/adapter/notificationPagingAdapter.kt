@@ -11,7 +11,7 @@ import com.example.mvvm_coroutin_flow_hilt.R
 import com.example.mvvm_coroutin_flow_hilt.databinding.BookItemBinding
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
 
-class notificationPagingAdapter (
+class notificationPagingAdapter(
     private val item: (ResponseDocument) -> Unit,
 ) : ListAdapter<ResponseDocument, notificationPagingAdapter.bookHolder>(comparator) {
 
@@ -29,13 +29,20 @@ class notificationPagingAdapter (
 
 
     companion object {
-        val comparator = object : DiffUtil.ItemCallback<ResponseDocument>() // 이것은 RecyclerView 목록 어댑터를 정의 할 때 일반적으로 수행하는 것과 동일하게 작동한다.
+        val comparator = object :
+            DiffUtil.ItemCallback<ResponseDocument>() // 이것은 RecyclerView 목록 어댑터를 정의 할 때 일반적으로 수행하는 것과 동일하게 작동한다.
         {
-            override fun areItemsTheSame(oldItem: ResponseDocument, newItem: ResponseDocument): Boolean {
+            override fun areItemsTheSame(
+                oldItem: ResponseDocument,
+                newItem: ResponseDocument
+            ): Boolean {
                 return oldItem.thumbnail == newItem.thumbnail
             }
 
-            override fun areContentsTheSame(oldItem: ResponseDocument, newItem: ResponseDocument): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ResponseDocument,
+                newItem: ResponseDocument
+            ): Boolean {
                 return oldItem == newItem
             }
         }
@@ -49,8 +56,8 @@ class notificationPagingAdapter (
         fun bind(item: ResponseDocument?) {
             item?.let { item ->
                 Glide.with(binding.root).load(item.thumbnail).centerCrop().into(binding.imageView)
-                binding.imageView.setOnClickListener{
-                  //  like(item)
+                binding.imageView.setOnClickListener {
+                    like(item)
                 }
             }
         }
@@ -67,8 +74,6 @@ class notificationPagingAdapter (
             }
         }
     }
-
-
 
 
 }

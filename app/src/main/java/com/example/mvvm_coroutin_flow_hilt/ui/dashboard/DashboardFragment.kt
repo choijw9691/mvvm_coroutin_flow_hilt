@@ -28,7 +28,7 @@ class DashboardFragment : Fragment() {
     val dashboardViewModel: DashboardViewModel by activityViewModels()
     val commonViewModel: CommonViewModel by activityViewModels()
 
-    private  val adapter: dashboardPagingAdapter = dashboardPagingAdapter { item -> commonViewModel.insert(item) }
+    private  val adapter: dashboardPagingAdapter = dashboardPagingAdapter { item -> commonViewModel.insert(item)}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,11 +41,12 @@ class DashboardFragment : Fragment() {
             dashboardViewModel.myCustomPosts?.collectLatest {
                 adapter.submitData(it)
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launch{
             commonViewModel.toast.collectLatest {
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onCreateView(
@@ -56,8 +57,6 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
 
    return root
     }

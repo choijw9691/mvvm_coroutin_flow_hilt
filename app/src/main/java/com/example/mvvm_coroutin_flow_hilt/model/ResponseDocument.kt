@@ -1,7 +1,10 @@
 package com.example.mvvm_coroutin_flow_hilt.model
 
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import com.google.gson.annotations.SerializedName
 
+@IgnoreExtraProperties
 data class ResponseDocument(
     @SerializedName("authors")
     val authors: ArrayList<String>,
@@ -25,5 +28,24 @@ data class ResponseDocument(
     val translators: ArrayList<String>,
     @SerializedName("url")
     val url: String
-)
+) {
+    constructor() : this(ArrayList(), "", "", 0, "", 0, "", "", "", ArrayList(), "") {}
+
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "authors" to authors,
+            "contents" to contents,
+            "isbn" to isbn,
+            "price" to price,
+            "publisher" to publisher,
+            "sale_price" to sale_price,
+            "status" to status,
+            "thumbnail" to thumbnail,
+            "title" to title,
+            "translators" to translators,
+            "url" to url
+            )
+    }
+}
 

@@ -14,4 +14,8 @@ class NotificationsViewModel @Inject constructor(private val repository: MainRep
         value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
+
+    fun getBookList(){
+
+    }
 }
