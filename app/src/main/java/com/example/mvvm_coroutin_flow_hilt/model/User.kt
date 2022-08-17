@@ -10,3 +10,4 @@ data class User (
     val emailVerified: Boolean,
     val uid: String
 )
+

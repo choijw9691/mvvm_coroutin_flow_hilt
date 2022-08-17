@@ -1,6 +1,8 @@
 package com.example.mvvm_coroutin_flow_hilt.repository
 
+import android.content.Context
 import android.util.Log
+import android.view.View
 import kr.co.bootpay.android.Bootpay
 import kr.co.bootpay.android.events.BootpayEventListener
 import kr.co.bootpay.android.models.BootExtra
@@ -10,70 +12,4 @@ import kr.co.bootpay.android.models.Payload
 
 
 class PayRepository {
-    /*
-    fun goRequest(v: View?) {
-        val user: BootUser = BootUser().setPhone("010-1234-5678") // 구매자 정보
-        val extra: BootExtra = BootExtra()
-            .setCardQuota("0,2,3") // 일시불, 2개월, 3개월 할부 허용, 할부는 최대 12개월까지 사용됨 (5만원 이상 구매시 할부허용 범위)
-        val price = 1000.0
-        val pg = "나이스페이"
-        val method = "네이버페이"
-
-        //통계용 데이터 추가
-        val items: MutableList<BootItem> = ArrayList()
-        val item1: BootItem =
-            BootItem().setName("마우's 스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
-        val item2: BootItem =
-            BootItem().setName("키보드").setId("ITEM_KEYBOARD_MOUSE").setQty(1).setPrice(500.0)
-        items.add(item1)
-        items.add(item2)
-        val payload = Payload()
-        payload.setApplicationId(application_id)
-            .setOrderName("부트페이 결제테스트")
-            .setPg(pg)
-            .setOrderId("1234")
-            .setMethod(method)
-            .setPrice(price)
-            .setUser(user)
-            .setExtra(extra)
-            .setItems(items)
-        val map: MutableMap<String, Any> = HashMap()
-        map["1"] = "abcdef"
-        map["2"] = "abcdef55"
-        map["3"] = 1234
-        payload.setMetadata(map)
-        Bootpay.init(getSupportFragmentManager(), ApplicationProvider.getApplicationContext())
-            .setPayload(payload)
-            .setEventListener(object : BootpayEventListener {
-                override fun onCancel(data: String?) {
-                    Log.d("cancel", data)
-                }
-
-                override fun onError(data: String?) {
-                    Log.d("error", data)
-                }
-
-                override fun onClose(data: String?) {
-                    Log.d("close", data)
-                    Bootpay.removePaymentWindow()
-                }
-
-                override fun onIssued(data: String?) { //가상계좌 발급이 완료되면 호출되는 함수
-                    Log.d("issued", data)
-                }
-
-                override fun onConfirm(data: String?): Boolean {
-                    Log.d("confirm", data)
-                    //  Bootpay.transactionConfirm(data);
-                    // 재고가 있어서 결제를 진행하려 할때 true (방법 1)
-                    return true //재고가 있어서 결제를 진행하려 할때 true (방법 2)
-                    //   return false; //결제를 진행하지 않을때 false
-                }
-
-                override fun onDone(data: String?) {
-                    Log.d("done", data)
-                }
-            }).requestPayment()
-    }
-*/
         }
