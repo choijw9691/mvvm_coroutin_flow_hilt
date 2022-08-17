@@ -76,5 +76,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
 
+    //bootpay
+    implementation 'io.github.bootpay:android:4.0.7'
 
 }
