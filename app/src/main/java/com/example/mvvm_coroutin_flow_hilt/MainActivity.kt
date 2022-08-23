@@ -61,13 +61,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val intent = Intent(this, PayActivity::class.java)  // 인텐트를 생성해줌,
-        // or val intent = Intent(this@MainActivity, SubActivity::class.java)
-        //자기자신 클래스의 정보와 띄워줄 화면의 정보를 적어준다.
-
-        // (key, value) 전달할 정보가 없다면 이 문장을 사용하지 않아도 됨.
-        // 전달할 정보가 많다면 더 적어줄 수도 있다.
-        startActivity(intent)  // 화면 전환을 시켜줌
+       // val intent = Intent(this, PayActivity::class.java)  // 인텐트를 생성해줌,
+      //  startActivity(intent)  // 화면 전환을 시켜줌
 
     }
 

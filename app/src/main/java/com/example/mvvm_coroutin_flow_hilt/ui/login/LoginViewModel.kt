@@ -13,6 +13,9 @@ import androidx.paging.cachedIn
 import com.example.mvvm_coroutin_flow_hilt.R
 import com.example.mvvm_coroutin_flow_hilt.model.ResponseDocument
 import com.example.mvvm_coroutin_flow_hilt.model.User
+import com.example.mvvm_coroutin_flow_hilt.module.ApiModule
+import com.example.mvvm_coroutin_flow_hilt.network.ApiLogin
+import com.example.mvvm_coroutin_flow_hilt.network.ApiService
 import com.example.mvvm_coroutin_flow_hilt.repository.LoginRepository
 import com.example.mvvm_coroutin_flow_hilt.repository.MainRepository
 import com.google.android.gms.tasks.Task
@@ -29,7 +32,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val repository: LoginRepository, @ApiModule.type2 private val apiService: ApiLogin
+) : ViewModel() {
 
     private var _isResgisterSuccessful = MutableSharedFlow<Boolean>()
     val isResgisterSuccessful = _isResgisterSuccessful.asSharedFlow()
@@ -41,8 +45,13 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
         repository.register(email, password).addOnCompleteListener {
             viewModelScope.launch {
                 _isResgisterSuccessful.emit(it.isSuccessful)
+
+                    var a =  apiService.insertUserInfo(email,password)
+                    Log.d("JIWOUNG", "responsetest: ${a.asJsonObject.get("success")}")
+
             }
         }
+
     }
 
     fun login(email: String, password: String){

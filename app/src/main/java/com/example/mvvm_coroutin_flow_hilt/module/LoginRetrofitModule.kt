@@ -1,9 +1,10 @@
 package com.example.mvvm_coroutin_flow_hilt.module
 
 import androidx.viewbinding.BuildConfig
+import com.example.mvvm_coroutin_flow_hilt.network.ApiLogin
+import com.example.mvvm_coroutin_flow_hilt.repository.MainRepository
 import com.example.mvvm_coroutin_flow_hilt.network.ApiService
 import com.example.mvvm_coroutin_flow_hilt.repository.LoginRepository
-import com.example.mvvm_coroutin_flow_hilt.repository.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

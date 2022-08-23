@@ -38,27 +38,29 @@ class LoginActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            loginViewModel.isResgisterSuccessful.collectLatest {
-                if (it) {
-                    Toast.makeText(this@LoginActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+            launch {
+                loginViewModel.isResgisterSuccessful.collectLatest {
+                    if (it) {
+                        Toast.makeText(this@LoginActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
 
-                } else Toast.makeText(this@LoginActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    } else Toast.makeText(this@LoginActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
-        lifecycleScope.launch {
-            loginViewModel.isLoginSuccessful.collectLatest {
-                if (it) {
-                    Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
-                    val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+            launch {
+                loginViewModel.isLoginSuccessful.collectLatest {
+                    if (it) {
+                        Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     init {
-        //Firebase.auth.signOut()
+        Firebase.auth.signOut()
 
     }
 }
