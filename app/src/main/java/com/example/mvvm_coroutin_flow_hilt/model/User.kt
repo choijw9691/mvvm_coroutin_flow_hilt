@@ -4,10 +4,10 @@ import android.net.Uri
 import com.google.gson.annotations.SerializedName
 
 data class User (
-    val name: String?,
-    val email: String?,
-    val photoUrl: Uri?,
-    val emailVerified: Boolean,
-    val uid: String
+    var token: String,
+    var name: String,
+    var id: String,
+    var pw: String,
+    var level: String
 )
 

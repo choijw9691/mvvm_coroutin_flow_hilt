@@ -112,8 +112,8 @@ object ApiModule {
     @type2
     @Singleton
     @Provides
-    fun provideMainRepository1() =
-        LoginRepository()
+    fun provideMainRepository1(@type2 loginService: ApiLogin) =
+        LoginRepository(loginService)
 
 
 
